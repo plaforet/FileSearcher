@@ -65,8 +65,7 @@ public class Runner {
 			if (fileList[i].isDirectory()) {
 				fillFiles(fileList[i]);
 			}
-			
-			
+
 			else {
 				writeToFile(fileList[i], fileList[i].getPath());
 			}
@@ -89,21 +88,21 @@ public class Runner {
 	}
 
 	// Example of student code
-//	public static boolean searchFolder(File folder, String search) {
-//		for (File file : folder.listFiles()) {
-//			if (file.isDirectory()) {
-//				if (searchFolder(file, search)) {
-//					return true;
-//				}
-//			}
-//			else {
-//				if (searchFile(file, search)) {
-//					return true;
-//				}
-//			}
-//		}
-//		return false;
-//	}
+	public static boolean searchFolder(File folder, String search) {
+		for (File file : folder.listFiles()) {
+			if (file.isDirectory()) {
+				if (searchFolder(file, search)) {
+					return true;
+				}
+			}
+			else {
+				if (searchFile(file, search)) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
 
 	public static String wordsFromFile(File f)
 			throws FileNotFoundException {
