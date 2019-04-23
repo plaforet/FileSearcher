@@ -65,6 +65,8 @@ public class Runner {
 			if (fileList[i].isDirectory()) {
 				fillFiles(fileList[i]);
 			}
+			
+			
 			else {
 				writeToFile(fileList[i], fileList[i].getPath());
 			}
