@@ -10,7 +10,6 @@ public class Runner {
 	static ArrayList<String> wordsList = new ArrayList<String>();
 	static Random rand = new Random();
 	static int listLength;
-	static File usedWords = new File("usedWords.txt");
 
 	// Starter code
 	public static boolean searchFile(File f, String s) {
@@ -88,21 +87,21 @@ public class Runner {
 	}
 
 	// Example of student code
-	public static boolean searchFolder(File folder, String search) {
-		for (File file : folder.listFiles()) {
-			if (file.isDirectory()) {
-				if (searchFolder(file, search)) {
-					return true;
-				}
-			}
-			else {
-				if (searchFile(file, search)) {
-					return true;
-				}
-			}
-		}
-		return false;
-	}
+//	public static boolean searchFolder(File folder, String search) {
+//		for (File file : folder.listFiles()) {
+//			if (file.isDirectory()) {
+//				if (searchFolder(file, search)) {
+//					return true;
+//				}
+//			}
+//			else {
+//				if (searchFile(file, search)) {
+//					return true;
+//				}
+//			}
+//		}
+//		return false;
+//	}
 
 	public static String wordsFromFile(File f)
 			throws FileNotFoundException {
@@ -115,22 +114,19 @@ public class Runner {
 		return text;
 	}
 
-	public static void usedWords(File folder)
+	public static void usedWords(File folder, PrintWriter outputStream)
 			throws FileNotFoundException {
 		File[] files = folder.listFiles();
-		PrintWriter outputStream = new PrintWriter(usedWords);
-
 		for (int i = 0; i < files.length; i++) {
-
 			if (files[i].isDirectory()) {
-				usedWords(files[i]);
+				usedWords(files[i], outputStream);
 			}
 			else {
-				outputStream.println(wordsFromFile(files[i]));
+				String text = wordsFromFile(files[i]);
+				outputStream.println(text);
 			}
 		}
 
-		outputStream.close();
 	}
 
 	public static void main(String[] args) throws IOException {
@@ -139,7 +135,10 @@ public class Runner {
 		// fillFolders(new File("Files"));
 		// fillFiles(new File("Files"));
 		File root = new File("Files/");
-		usedWords(root);
+		File usedWordsFile = new File("usedWords.txt");
+		PrintWriter outputStream = new PrintWriter(usedWordsFile);
+		usedWords(root, outputStream);
+		outputStream.close();
 		System.out.println(searchFile(new File("Files/test.txt"), "bike"));
 	}
 
