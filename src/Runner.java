@@ -67,26 +67,6 @@ public class Runner {
 
 	}
 
-	// Starter code
-	public static boolean searchFile(File f, String s) {
-		Scanner fileText;
-		try {
-			fileText = new Scanner(f);
-			while (fileText.hasNextLine()) {
-				if (fileText.nextLine().indexOf(s) != -1) {
-					fileText.close();
-					return true;
-				}
-			}
-			fileText.close();
-			return false;
-		} catch (FileNotFoundException e) {
-			System.out.println("File Not Found: " + f.getPath());
-			return false;
-		}
-
-	}
-
 	public static String wordsFromFile(File f)
 			throws FileNotFoundException {
 		String text = "";
@@ -114,6 +94,7 @@ public class Runner {
 	}
 	
 	// Example of student code
+	
 	public static boolean searchFolder(File folder, String search) {
 		for (File file : folder.listFiles()) {
 			if (file.isDirectory()) {
@@ -129,6 +110,19 @@ public class Runner {
 		}
 		return false;
 	}
+	
+	public static int countOccurrences(String text, String searchWord) {
+		int wordLength = searchWord.length();
+		int index = text.indexOf(searchWord) {
+			if (index == -1) {
+				return 0;
+			}
+			String newText = text.substring(index + length);
+			return 1 + countOccurences(newText, searchWord);
+		}
+	}
+	
+	
 
 	public static void main(String[] args) throws IOException {
 		wordList(new File("word list.txt"));
