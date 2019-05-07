@@ -93,32 +93,46 @@ public class Runner {
 
 	}
 	
-	// Example of student code
 	
-	public static boolean searchFolder(File folder, String search) {
-		for (File file : folder.listFiles()) {
-			if (file.isDirectory()) {
-				if (searchFolder(file, search)) {
-					return true;
-				}
+	// Example of student code
+	public static void listDirectory(File directory) {
+		File[] paths = directory.listFiles();
+		for (File path : paths) {
+			if (path.isDirectory()) {
+				listDirectory(path);
 			}
 			else {
-				if (searchFile(file, search)) {
-					return true;
-				}
+				System.out.println(path);
 			}
 		}
-		return false;
 	}
-	
+
 	public static int countOccurrences(String text, String searchWord) {
 		int wordLength = searchWord.length();
-		int index = text.indexOf(searchWord) {
-			if (index == -1) {
-				return 0;
+		int index = text.indexOf(searchWord);
+		if (index == -1) {
+			return 0;
+		}
+		if (index == text.length() - wordLength) {
+			return 1;
+		}
+		String newText = text.substring(index + wordLength);
+		return 1 + countOccurrences(newText, searchWord);
+	}
+
+	public static void searchDirectory(File directory, String searchWord) {
+		File[] paths = directory.listFiles();
+		for (File path : paths) {
+			if (path.isDirectory()) {
+				listDirectory(path);
 			}
-			String newText = text.substring(index + length);
-			return 1 + countOccurences(newText, searchWord);
+			else {
+				String text = SearchHelper.readFile(path);
+				int count = countOccurrences(text, searchWord);
+				if (count > 0) {
+					System.out.println(path + ": " + count);
+				}
+			}
 		}
 	}
 	
